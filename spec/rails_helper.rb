@@ -7,6 +7,7 @@ require 'rspec/rails'
 require './spec/support/factory_bot_rails'
 require './spec/support/shoulda_matchers'
 require './spec/support/database_cleaner'
+require './spec/support/controller_spec_helper'
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -20,4 +21,5 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+  config.include ControllerSpecHelper
 end
