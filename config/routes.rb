@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  resources :posts
+
+  scope module: :v2, constraints: ApiVersion.new('v2') do
+    resources :posts, only: :index
+  end
+
+  scope module: :v1, constraints: ApiVersion.new('v1', true) do
+    resources :posts
+  end
 
   post 'auth/login', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'

@@ -24,4 +24,12 @@ module ControllerSpecHelper
       'Content-Type' => 'application/json'
     }
   end
+
+  def v2_headers
+    {
+      'Authorization' => token_generator(user.id),
+      'Content-Type' => 'application/json',
+      'Accept' => 'application/vnd.posts.v2+json'
+    }
+  end
 end
