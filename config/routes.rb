@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   end
 
   scope module: :v1, constraints: ApiVersion.new('v1', true) do
-    resources :posts
+    resources :posts do
+      resources :likes, only: %i[create destroy]
+    end
   end
 
   post 'auth/login', to: 'authentication#authenticate'

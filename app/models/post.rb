@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   has_one_attached :image
+  has_many :likes, dependent: :destroy
 
   belongs_to :user
   validates :caption, presence: true, length: { minimum: 3, maximum: 200 }

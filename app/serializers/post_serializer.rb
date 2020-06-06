@@ -1,5 +1,5 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :image_url, :caption, :created_at, :author
+  attributes :id, :image_url, :caption, :like_count, :created_at, :author
 
   def author
     {
@@ -10,5 +10,9 @@ class PostSerializer < ActiveModel::Serializer
 
   def image_url
     object.image_url
+  end
+
+  def like_count
+    object.likes.length
   end
 end
