@@ -9,6 +9,9 @@ gem 'puma', '~> 4.1'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bcrypt', '~> 3.1', '>= 3.1.13'
 gem 'jwt', '~> 2.2', '>= 2.2.1'
+gem 'cloudinary', '~> 1.14'
+
+gem 'active_model_serializers', '~> 0.10.10'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

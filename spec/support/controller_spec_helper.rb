@@ -32,4 +32,13 @@ module ControllerSpecHelper
       'Accept' => 'application/vnd.posts.v2+json'
     }
   end
+
+  def fetch_image
+    image_path = "#{::Rails.root}/storage/defaults/default_post_image.png"
+    {
+      io: File.open(image_path),
+      filename: 'default_post_image.png',
+      content_type: 'image/png'
+    }
+  end
 end

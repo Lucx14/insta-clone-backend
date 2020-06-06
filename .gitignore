@@ -28,3 +28,6 @@
 
 # Ignore coverage reports
 coverage/
+
+# Ignore cloudinary config file
+/config/cloudinary.yml

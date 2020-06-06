@@ -34,7 +34,7 @@ module V1
     end
 
     def post_params
-      params.permit(:caption)
+      params.permit(:caption, :image)
     end
   end
 end

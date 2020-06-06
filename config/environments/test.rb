@@ -33,6 +33,7 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test
+  Rails.application.routes.default_url_options = { host: "http://localhost:3000" }
 
   config.action_mailer.perform_caching = false
 

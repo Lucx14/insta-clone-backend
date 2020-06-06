@@ -8,6 +8,7 @@ require './spec/support/factory_bot_rails'
 require './spec/support/shoulda_matchers'
 require './spec/support/database_cleaner'
 require './spec/support/controller_spec_helper'
+require './spec/support/files_test_helper.rb'
 
 begin
   ActiveRecord::Migration.maintain_test_schema!

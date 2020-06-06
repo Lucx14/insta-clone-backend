@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Posts', type: :request do
   let(:user) { create(:user) }
-  let!(:posts) { create_list(:post, 10, user: user) }
+  let!(:posts) { create_list(:post, 10, :with_image, user: user) }
   let(:post_id) { posts.first.id }
 
   let(:headers) { valid_headers }
@@ -48,7 +48,8 @@ RSpec.describe 'Posts', type: :request do
   end
 
   describe 'POST /posts' do
-    let(:valid_attributes) { { caption: 'Test Caption Testing' }.to_json }
+    let(:image) { FilesTestHelper.png }
+    let(:valid_attributes) { { caption: 'Test Caption Testing', image: image } }
 
     context 'when the request is valid' do
       before { post '/posts', params: valid_attributes, headers: headers }

@@ -36,7 +36,7 @@ RSpec.describe User, type: :model do
   describe 'posts dependency' do
     it 'deletes all posts when user is deleted' do
       user = create(:user)
-      create_list(:post, 3, user: user)
+      create_list(:post, 3, :with_image, user: user)
       expect { user.destroy }.to change(Post, :count).by(-3)
     end
   end
