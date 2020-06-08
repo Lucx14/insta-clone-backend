@@ -1,6 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  describe 'attributes' do
+    it { is_expected.to respond_to(:followed) }
+    it { is_expected.to respond_to(:followers) }
+    it { is_expected.to respond_to(:followed_posts) }
+    it { is_expected.to respond_to(:followed_by?) }
+    it { is_expected.to respond_to(:follow) }
+    it { is_expected.to respond_to(:unfollow) }
+    it { is_expected.to respond_to(:follower_count) }
+    it { is_expected.to respond_to(:followed_count) }
+    it { is_expected.to respond_to(:post_count) }
+  end
+
   describe 'associations' do
     it { is_expected.to have_many(:posts).dependent(:destroy) }
     it { is_expected.to have_many(:likes).dependent(:destroy) }
@@ -39,6 +51,73 @@ RSpec.describe User, type: :model do
       user = create(:user)
       create_list(:post, 3, :with_image, user: user)
       expect { user.destroy }.to change(Post, :count).by(-3)
+    end
+  end
+
+  describe 'post_count' do
+    it 'returns the number of posts' do
+      user = create(:user)
+      create_list(:post, 3, :with_image, user: user)
+      expect(user.post_count).to eq(3)
+    end
+  end
+
+  describe 'bespoke follow methods' do
+    let(:kira) { create(:user) }
+    let(:odo) { create(:user) }
+    let(:sisko) { create(:user) }
+    let(:dax) { create(:user) }
+
+    describe 'followed_by?' do
+      before { create(:follow, followed_id: kira.id, follower_id: odo.id) }
+
+      it 'indicates a user followed by other user' do
+        expect(kira.followed_by?(odo)).to be(true)
+        expect(odo.followed_by?(kira)).to be(false)
+      end
+    end
+
+    describe 'follow' do
+      it 'creates a new follow' do
+        expect(kira.followed_by?(odo)).to be false
+        odo.follow(kira)
+        expect(kira.followed_by?(odo)).to be true
+      end
+    end
+
+    describe 'unfollow' do
+      before do
+        odo.follow(kira)
+        odo.unfollow(kira)
+      end
+
+      it 'removes a follow relationship' do
+        expect(kira.followed_by?(odo)).to be false
+      end
+    end
+
+    describe 'follower count' do
+      before do
+        odo.follow(kira)
+        dax.follow(kira)
+        sisko.follow(kira)
+      end
+
+      it 'returns the number of followers' do
+        expect(kira.follower_count).to eq(3)
+      end
+    end
+
+    describe 'followed count' do
+      before do
+        kira.follow(dax)
+        kira.follow(sisko)
+        kira.follow(odo)
+      end
+
+      it 'returns the number of users the user is following' do
+        expect(kira.followed_count).to eq(3)
+      end
     end
   end
 end
