@@ -43,11 +43,19 @@ class User < ApplicationRecord
   end
 
   def follow(other_user)
-    follows_as_follower.create(followed_id: other_user.id)
+    if !other_user.followed_by?(self)
+      follows_as_follower.create(followed_id: other_user.id)
+    else
+      raise(ExceptionHandler::DuplicateRelationship, 'Relationship already exists')
+    end
   end
 
   def unfollow(other_user)
-    follows_as_follower.find_by(followed_id: other_user.id).destroy
+    if other_user.followed_by?(self)
+      follows_as_follower.find_by(followed_id: other_user.id).destroy
+    else
+      raise(ExceptionHandler::MissingRelationship, 'No existing relationship')
+    end
   end
 
   def follower_count

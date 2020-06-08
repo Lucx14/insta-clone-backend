@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     resources :posts do
       resources :likes, only: %i[create destroy]
     end
+
+    post '/follow', to: 'follows#create'
+    delete '/follow', to: 'follows#destroy'
   end
 
   post 'auth/login', to: 'authentication#authenticate'
