@@ -20,6 +20,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
 
+  # need to prevent user from using a . in their username
   validates :username, presence: true,
                        length: { minimum: 3, maximum: 25 },
                        uniqueness: { case_sensitive: false }

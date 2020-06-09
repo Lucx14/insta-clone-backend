@@ -5,16 +5,22 @@ module V1
 
     def index
       @posts = Post.all
-      render json: @posts, status: :ok
+      render json: @posts, each_serializer: PostSerializer, scope: {
+        current_user: current_user
+      }, status: :ok
     end
 
     def show
-      render json: @post, status: :ok
+      render json: @post, each_serializer: PostSerializer, scope: {
+        current_user: current_user
+      }, status: :ok
     end
 
     def create
       @post = current_user.posts.create!(post_params)
-      render json: @post, status: :created
+      render json: @post, each_serializer: PostSerializer, scope: {
+        current_user: current_user
+      }, status: :created
     end
 
     def update

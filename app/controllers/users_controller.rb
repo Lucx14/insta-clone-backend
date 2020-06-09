@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
+  include ExceptionHandler
+
   skip_before_action :authorize_request, only: :create
+  before_action :set_profile_owner, only: %i[show]
 
   def create
     user = User.create!(user_params)
@@ -13,7 +16,24 @@ class UsersController < ApplicationController
     render json: response, status: :created
   end
 
+  def show
+    if @profile_owner
+      render json: @profile_owner, each_serializer: UserSerializer, scope: {
+        current_user: current_user,
+        profile_owner: @profile_owner
+      }, status: :ok
+    else
+      render json: {
+        message: 'Could not find user'
+      }, status: :not_found
+    end
+  end
+
   private
+
+  def set_profile_owner
+    @profile_owner = User.find_by(username: params[:username])
+  end
 
   def user_params
     params.permit(:name, :username, :email, :password, :password_confirmation)
