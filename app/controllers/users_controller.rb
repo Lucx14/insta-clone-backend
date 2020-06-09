@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include ExceptionHandler
 
   skip_before_action :authorize_request, only: :create
-  before_action :set_profile_owner, only: %i[show]
+  before_action :set_profile_owner, only: %i[show change_avatar]
 
   def create
     user = User.create!(user_params)
@@ -29,6 +29,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def change_avatar
+    @profile_owner.update(user_params)
+    head :no_content
+  end
+
   private
 
   def set_profile_owner
@@ -36,6 +41,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.permit(:name, :username, :email, :password, :password_confirmation)
+    params.permit(:name, :username, :email, :password, :password_confirmation, :avatar)
   end
 end

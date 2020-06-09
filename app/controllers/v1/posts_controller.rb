@@ -10,6 +10,13 @@ module V1
       }, status: :ok
     end
 
+    def feed
+      @posts = current_user.followed_posts
+      render json: @posts, each_serializer: PostSerializer, scope: {
+        current_user: current_user
+      }, status: :ok
+    end
+
     def show
       render json: @post, each_serializer: PostSerializer, scope: {
         current_user: current_user

@@ -1,6 +1,11 @@
 class User < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   # password encryption
   has_secure_password
+
+  # User has an avatar image
+  has_one_attached :avatar
 
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -32,6 +37,8 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX }
 
   validates :password_digest, presence: true
+
+  after_create :attach_default_avatar
 
   # Methods relating to users posts
   def post_count
@@ -65,5 +72,17 @@ class User < ApplicationRecord
 
   def followed_count
     followed.length
+  end
+
+  def avatar_url
+    url_for(avatar)
+  end
+
+  private
+
+  # attach default avatar to the user after create
+  def attach_default_avatar
+    avatar_path = "#{::Rails.root}/storage/defaults/default_avatar.png"
+    avatar.attach(io: File.open(avatar_path), filename: 'default_avatar.png', content_type: 'image/png')
   end
 end

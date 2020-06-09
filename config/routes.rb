@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :posts do
       resources :likes, only: %i[create destroy]
     end
+    get '/feed', to: 'posts#feed'
 
     post '/follow', to: 'follows#create'
     delete '/follow', to: 'follows#destroy'
@@ -16,4 +17,5 @@ Rails.application.routes.draw do
   post 'auth/login', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'
   get '/users/:username', to: 'users#show'
+  put '/users/:username/avatar', to: 'users#change_avatar'
 end

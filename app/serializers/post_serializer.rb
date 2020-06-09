@@ -5,7 +5,8 @@ class PostSerializer < ActiveModel::Serializer
     {
       id: object.user.id,
       username: object.user.username,
-      followed_by_current_user: object.user.followed_by?(scope[:current_user])
+      followed_by_current_user: object.user.followed_by?(scope[:current_user]),
+      avatar: object.user.avatar_url
     }
   end
 

@@ -18,6 +18,14 @@ module FilesTestHelper
     upload(jpg_name, 'image/jpg')
   end
 
+  def avatar_name
+    'default_test_avatar.png'
+  end
+
+  def avatar_png
+    upload(avatar_name, 'image/png')
+  end
+
   private
 
   def upload(name, type)
