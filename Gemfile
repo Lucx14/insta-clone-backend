@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-
+# Guided by https://github.com/AngusGMorrison/supagram-backend
 ruby '2.7.1'
 
 gem 'rails', '~> 6.0.3'
