@@ -1,7 +1,10 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :avatar_url, :name, :username, :email,
              :post_count, :follower_count, :followed_count, :followed_by_current_user
-  has_many :posts
+
+  has_many :posts do
+    object.posts.order(created_at: :desc).limit(25)
+  end
 
   def post_count
     object.post_count

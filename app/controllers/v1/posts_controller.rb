@@ -11,7 +11,7 @@ module V1
     end
 
     def feed
-      @posts = current_user.followed_posts
+      @posts = current_user.recent_followed_feed
       render json: @posts, each_serializer: PostSerializer, scope: {
         current_user: current_user
       }, status: :ok

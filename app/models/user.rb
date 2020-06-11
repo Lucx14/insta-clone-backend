@@ -78,6 +78,14 @@ class User < ApplicationRecord
     url_for(avatar)
   end
 
+  def recent_followed_feed
+    followed_posts.order(created_at: :desc).limit(25)
+  end
+
+  def recent_profile_feed
+    posts.order(created_at: :desc).limit(25)
+  end
+
   private
 
   # attach default avatar to the user after create
