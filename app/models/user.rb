@@ -38,7 +38,7 @@ class User < ApplicationRecord
 
   validates :password_digest, presence: true
 
-  after_create :attach_default_avatar
+  after_create :attach_default_avatar, :follow_self
 
   # Methods relating to users posts
   def post_count
@@ -84,5 +84,10 @@ class User < ApplicationRecord
   def attach_default_avatar
     avatar_path = "#{::Rails.root}/storage/defaults/default_avatar.png"
     avatar.attach(io: File.open(avatar_path), filename: 'default_avatar.png', content_type: 'image/png')
+  end
+
+  # Feed will show followed and own posts, so have to follow self
+  def follow_self
+    Follow.create(follower_id: id, followed_id: id)
   end
 end

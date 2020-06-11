@@ -104,7 +104,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'returns the number of followers' do
-        expect(kira.follower_count).to eq(3)
+        expect(kira.follower_count).to eq(4)
       end
     end
 
@@ -116,7 +116,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'returns the number of users the user is following' do
-        expect(kira.followed_count).to eq(3)
+        expect(kira.followed_count).to eq(4)
       end
     end
   end
