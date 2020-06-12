@@ -4,7 +4,7 @@ module V1
     before_action :set_post, only: %i[show update destroy]
 
     def index
-      @posts = Post.all
+      @posts = Post.where.not(user_id: current_user.id)
       render json: @posts, each_serializer: PostSerializer, scope: {
         current_user: current_user
       }, status: :ok

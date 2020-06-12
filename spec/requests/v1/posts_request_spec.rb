@@ -12,7 +12,7 @@ RSpec.describe 'Posts', type: :request do
 
     it 'returns the posts' do
       expect(response.body).not_to be_empty
-      expect(JSON.parse(response.body).size).to eq(10)
+      expect(JSON.parse(response.body).size).to eq(0)
     end
 
     it 'returns a status code 200' do

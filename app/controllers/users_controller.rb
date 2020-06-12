@@ -30,8 +30,16 @@ class UsersController < ApplicationController
   end
 
   def change_avatar
-    @profile_owner.update(user_params)
-    head :no_content
+    if @profile_owner.id == current_user.id
+      @profile_owner.update(user_params)
+      render json: {
+        message: 'Avatar successfully updated!'
+      }, status: :ok
+    else
+      render json: {
+        message: 'Permission denied, only the profile owner can change their avatar!'
+      }, status: :unauthorized
+    end
   end
 
   private

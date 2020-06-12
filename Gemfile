@@ -10,6 +10,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bcrypt', '~> 3.1', '>= 3.1.13'
 gem 'jwt', '~> 2.2', '>= 2.2.1'
 gem 'cloudinary', '~> 1.14'
+gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 
 gem 'active_model_serializers', '~> 0.10.10'
 
@@ -43,5 +44,3 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # gem 'redis', '~> 4.0'=
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
