@@ -6,7 +6,8 @@ class AuthenticationController < ApplicationController
     render json: {
       auth_token: auth_details[:auth_token],
       user_id: auth_details[:data][:user_id],
-      token_exp: auth_details[:data][:exp]
+      token_exp: auth_details[:data][:exp],
+      username: auth_details[:data][:username]
     }
   end
 
